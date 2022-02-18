@@ -1,5 +1,8 @@
+import 'package:dp2papp/bloc/state_emitter/selected_symbol_state_emitter.dart';
 import 'package:dp2papp/presentation/screen/splashscreen.dart';
 import 'package:dp2papp/presentation/states/active_symbol/active_symbol_cubit.dart';
+import 'package:dp2papp/presentation/states/selected_symbol/selected_symbol_cubit.dart';
+import 'package:dp2papp/presentation/states/tick_subs/tick_subs_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_deriv_api/services/connection/api_manager/connection_information.dart';
@@ -30,7 +33,9 @@ void registerBlocs() {
         ),
       ),
     )
-    ..register(ActiveSymbolCubit());
+    ..register(ActiveSymbolCubit())
+    ..register(SelectedSymbolCubit())
+    ..register(TickSubsCubit());
 
 }
 
@@ -41,6 +46,9 @@ void initializeEventDispatcher() => EventDispatcher(BlocManager.instance)
   )
   ..register<ActiveSymbolCubit, ActiveSymbolsStateEmitter>(
         (BaseBlocManager blocManager) => ActiveSymbolsStateEmitter(blocManager),
+  )
+  ..register<SelectedSymbolCubit, SelectedSymbolStateEmitter>(
+        (BaseBlocManager blocManager) => SelectedSymbolStateEmitter(blocManager),
   );
 
 

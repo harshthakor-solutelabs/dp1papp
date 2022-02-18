@@ -1,6 +1,9 @@
 import 'package:dp2papp/presentation/widgets/active_symbol_widget.dart';
+import 'package:dp2papp/presentation/widgets/tick_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/contracts_widget.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -22,6 +25,8 @@ class _DashboardState extends State<Dashboard> {
             child: Text("Active Symbol"),
           ),
           ActiveSymbolsWidget(),
+          TickWidget(),
+          Expanded(child: ContractsWidget()),
         ],
       ),
     );

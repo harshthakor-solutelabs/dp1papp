@@ -1,4 +1,5 @@
 
+import 'package:dp2papp/presentation/states/selected_symbol/selected_symbol_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_deriv_api/api/common/active_symbols/active_symbols.dart';
@@ -23,10 +24,12 @@ class ActiveSymbolsWidget extends StatefulWidget {
 
 class _ActiveSymbolsWidgetState extends State<ActiveSymbolsWidget> {
   late final ActiveSymbolCubit _activeSymbolCubit;
+  late final SelectedSymbolCubit _selectedSymbolCubit;
 
   @override
   void initState() {
     _activeSymbolCubit = BlocManager.instance.fetch<ActiveSymbolCubit>();
+    _selectedSymbolCubit = BlocManager.instance.fetch<SelectedSymbolCubit>();
     _activeSymbolCubit.fetchActiveSymbols();
     super.initState();
   }
@@ -34,6 +37,7 @@ class _ActiveSymbolsWidgetState extends State<ActiveSymbolsWidget> {
   @override
   void dispose() {
     BlocManager.instance.dispose<ActiveSymbolCubit>();
+    BlocManager.instance.dispose<SelectedSymbolCubit>();
     super.dispose();
   }
 
@@ -53,6 +57,7 @@ class _ActiveSymbolsWidgetState extends State<ActiveSymbolsWidget> {
                       initialItem: state.activeSymbols[0],
                       onItemSelected: (ActiveSymbol item) {
                         print(item.marketDisplayName);
+                        _selectedSymbolCubit.selectedSymbol(item);
                       },
                     )
                   ],
